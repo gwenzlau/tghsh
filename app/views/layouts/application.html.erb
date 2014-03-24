@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Taghash</title>
+  <title>Hashdat</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -10,6 +10,24 @@
 <%= render 'layouts/header' %>
 <%= yield %>
 
-
+<script>
+var HASHTAG_URL = "https://api.instagram.com/v1/tags/search?q=";
+ 
+$('.search-btn').click( function() {
+  var query = $('.search-field').val();
+  var get_url = GET_HASHTAG_UR + query
+  var html_to_inject = "";
+  $.get(get_url, function(data) {
+    // parse the data object and populate HTML
+    for(var i = 0; i < data.length; i++) {
+        var thumb = data[i]['thumb'];
+        html_to_inject += "<img src='"+thumb+"'>";
+    }
+    puts 'get_url'
+    // push the data to the div container
+    $('.container').html(html_to_inject);
+  });
+});
+</script>
 </body>
 </html>
